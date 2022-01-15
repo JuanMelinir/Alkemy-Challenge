@@ -2,9 +2,13 @@ package com.alkemy.challenge.challenge.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="pelicula")
@@ -23,14 +27,14 @@ public class PeliculaEntity {
 
     private int edad;
 
-    @Column(name="fecha_de_creacion")
-    private Date fechaDeCreacion;
+    @Column(name="fecha_de_creacion", nullable = false)
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private LocalDate fechaDeCreacion;
 
     private int calificacion;
 
-    @ManyToMany
-    @JoinColumn(name = "personaje_id")
-    private PersonajeEntity personaje;
+    @ManyToMany(mappedBy = "peliculas", cascade = CascadeType.ALL)
+    private List<PersonajeEntity> personajes=new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "genero_id")
