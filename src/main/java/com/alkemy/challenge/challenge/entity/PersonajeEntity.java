@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="personaje")
@@ -22,30 +20,13 @@ public class PersonajeEntity {
 
     private String nombre;
 
-    private int edad;
+    private Long edad;
 
-    private double peso;
+    private Long peso;
 
     private String historia;
-    //trae la informacion de la pelicula
-    @ManyToMany(fetch=FetchType.EAGER, cascade= CascadeType.ALL)
-    @JoinColumn(name = "peliculas_id", insertable = false, updatable = false)
-    private PeliculaEntity pelicula;
-    //guarda y actualiza
-    @Column(name= "pelicula_id", nullable = false)
-    private Long peliculaId;
 
-    @ManyToMany(
-        cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-              })
-
-    @JoinTable(
-            name = "personaje_pelicula",
-            joinColumns = @JoinColumn(name= "personaje_id"),
-            inverseJoinColumns = @JoinColumn(name = "pelicula_id")
-    )
-    private Set<PeliculaEntity> peliculas = new HashSet<>();
+    @ManyToMany(mappedBy = "personajes", cascade = CascadeType.ALL)
+    private List<PeliculaEntity> peliculas=new ArrayList<>();
 
 }

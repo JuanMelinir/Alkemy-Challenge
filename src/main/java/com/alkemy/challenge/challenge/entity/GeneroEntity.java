@@ -19,7 +19,5 @@ public class GeneroEntity {
 
     private String imagen;
 
-    @OneToMany
-    @JoinColumn(name = "pelicula_id")
-    private PeliculaEntity pelicula;
+
 }

@@ -6,9 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name="pelicula")
@@ -25,19 +23,36 @@ public class PeliculaEntity {
 
     private String titulo;
 
-    private int edad;
+    private Long edad;
 
     @Column(name="fecha_de_creacion", nullable = false)
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate fechaDeCreacion;
 
-    private int calificacion;
+    private Long calificacion;
 
-    @ManyToMany(mappedBy = "peliculas", cascade = CascadeType.ALL)
-    private List<PersonajeEntity> personajes=new ArrayList<>();
-
-    @OneToOne
-    @JoinColumn(name = "genero_id")
+    //trae la informacion del genero
+    @ManyToOne(fetch=FetchType.EAGER, cascade= CascadeType.ALL)
+    @JoinColumn(name = "genero_id",insertable = false, updatable = false)
     private GeneroEntity genero;
+    //guarda y actualiza
+    @Column(name = "genero_id",nullable = false)
+    private Long generoId;
+
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+
+    @JoinTable(
+            name = "personaje_pelicula",
+            joinColumns = @JoinColumn(name= "pelicula_id"),
+            inverseJoinColumns = @JoinColumn(name = "personaje_id")
+    )
+    private Set<PersonajeEntity> personajes = new HashSet<>();
+
+
+
 
 }
