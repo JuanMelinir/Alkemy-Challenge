@@ -1,7 +1,10 @@
 package com.alkemy.challenge.challenge.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,6 +15,8 @@ import java.util.*;
 @Table(name="pelicula")
 @Getter
 @Setter
+@SQLDelete(sql="UPDATE pelicula SET deleted = true WHERE id=?")
+@Where(clause="delete=false")
 
 public class PeliculaEntity {
 
@@ -23,10 +28,9 @@ public class PeliculaEntity {
 
     private String titulo;
 
-    private Long edad;
-
     @Column(name="fecha_de_creacion", nullable = false)
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate fechaDeCreacion;
 
     private Long calificacion;
@@ -36,7 +40,7 @@ public class PeliculaEntity {
     @JoinColumn(name = "genero_id",insertable = false, updatable = false)
     private GeneroEntity genero;
     //guarda y actualiza
-    @Column(name = "genero_id",nullable = false)
+    @Column(name = "genero_id", nullable = false)
     private Long generoId;
 
     @ManyToMany(
