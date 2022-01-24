@@ -9,14 +9,13 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 
 @Entity
-@Table(name="genero")
 @Getter
 @Setter
 @SQLDelete(sql="UPDATE genero SET deleted = true WHERE id=?")
 @Where(clause="delete=false")
-public class GeneroEntity {
+public class Genero {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;

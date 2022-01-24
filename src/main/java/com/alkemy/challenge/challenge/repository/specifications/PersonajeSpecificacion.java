@@ -1,8 +1,8 @@
 package com.alkemy.challenge.challenge.repository.specifications;
 
 import com.alkemy.challenge.challenge.controller.PersonajeFiltersDTO;
-import com.alkemy.challenge.challenge.entity.PeliculaEntity;
-import com.alkemy.challenge.challenge.entity.PersonajeEntity;
+import com.alkemy.challenge.challenge.entity.Pelicula;
+import com.alkemy.challenge.challenge.entity.Personaje;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PersonajeSpecificacion {
 
-    public Specification<PersonajeEntity> getByFilters(PersonajeFiltersDTO filtersDTO){
+    public Specification<Personaje> getByFilters(PersonajeFiltersDTO filtersDTO){
         return  (root,query,criteriaBuilder)->{
         List<Predicate> predicates=new ArrayList<>();
         if(StringUtils.hasLength(filtersDTO.getNombre())){
@@ -39,7 +39,7 @@ public class PersonajeSpecificacion {
 
             }
             if(!CollectionUtils.isEmpty(filtersDTO.getPeliculas())){
-                Join<PeliculaEntity,PersonajeEntity>join=root.join("peliculas", JoinType.INNER);
+                Join<Pelicula, Personaje>join=root.join("peliculas", JoinType.INNER);
                 Expression<String>peliculasId=join.get("id");
                 predicates.add(peliculasId.in(filtersDTO.getPeliculas()));
             }

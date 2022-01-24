@@ -2,7 +2,7 @@ package com.alkemy.challenge.challenge.service.impl;
 
 
 import com.alkemy.challenge.challenge.dto.PeliculaDTO;
-import com.alkemy.challenge.challenge.entity.PeliculaEntity;
+import com.alkemy.challenge.challenge.entity.Pelicula;
 import com.alkemy.challenge.challenge.mapper.PeliculaMapper;
 import com.alkemy.challenge.challenge.repository.PeliculaRepository;
 import com.alkemy.challenge.challenge.service.PeliculaService;
@@ -19,16 +19,16 @@ public class PeliculaServiceImpl implements PeliculaService {
     private PeliculaRepository peliculaRepository;
 
     public PeliculaDTO save(PeliculaDTO dto){
-        PeliculaEntity peliculaEntity=peliculaMapper.peliculaDTO2Entity(dto);
-        PeliculaEntity peliculaEntitySaved=peliculaRepository.save(peliculaEntity);
-        PeliculaDTO result= peliculaMapper.peliculaEntity2DTO(peliculaEntitySaved,false);
+        Pelicula pelicula =peliculaMapper.peliculaDTO2Entity(dto);
+        Pelicula peliculaSaved =peliculaRepository.save(pelicula);
+        PeliculaDTO result= peliculaMapper.peliculaEntity2DTO(peliculaSaved,false);
         //todo: guardar pelicula
         System.out.println("GUARDAR PELICULA");
         return result;
     }
 
     public List<PeliculaDTO> getAllPeliculas() {
-        List<PeliculaEntity>peliculas=peliculaRepository.findAll();
+        List<Pelicula>peliculas=peliculaRepository.findAll();
         List<PeliculaDTO> result=peliculaMapper.peliculaEntityList2DTOList(peliculas,false);
         return result;
     }
@@ -36,8 +36,8 @@ public class PeliculaServiceImpl implements PeliculaService {
         peliculaRepository.deleteById(id);
     }
 
-    public PeliculaEntity getEntityById(Long id){
-    PeliculaEntity pelicula=peliculaRepository.getById(id);
+    public Pelicula getEntityById(Long id){
+    Pelicula pelicula=peliculaRepository.getById(id);
     return pelicula;
     }
 }

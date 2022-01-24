@@ -1,7 +1,7 @@
 package com.alkemy.challenge.challenge.mapper;
 
 import com.alkemy.challenge.challenge.dto.GeneroDTO;
-import com.alkemy.challenge.challenge.entity.GeneroEntity;
+import com.alkemy.challenge.challenge.entity.Genero;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,23 +9,23 @@ import java.util.List;
 
 @Component
 public class GeneroMapper {
-    public GeneroEntity generoDTO2Entity(GeneroDTO dto){
-    GeneroEntity generoEntity=new GeneroEntity();
-    generoEntity.setImagen(dto.getImagen());
-    generoEntity.setNombre(dto.getNombre());
-    return generoEntity;
+    public Genero generoDTO2Entity(GeneroDTO dto){
+    Genero genero =new Genero();
+    genero.setImagen(dto.getImagen());
+    genero.setNombre(dto.getNombre());
+    return genero;
     }
-    public GeneroDTO generoEntity2DTO(GeneroEntity generoEntity){
+    public GeneroDTO generoEntity2DTO(Genero genero){
     GeneroDTO generoDTO= new GeneroDTO();
-    generoDTO.setId(generoEntity.getId());
-    generoDTO.setImagen(generoEntity.getImagen());
-    generoDTO.setNombre(generoEntity.getNombre());
+    generoDTO.setId(genero.getId());
+    generoDTO.setImagen(genero.getImagen());
+    generoDTO.setNombre(genero.getNombre());
     return generoDTO;
     }
 
-    public List<GeneroDTO> generoEntityList2DTOList(List<GeneroEntity>entities){
+    public List<GeneroDTO> generoEntityList2DTOList(List<Genero>entities){
     List<GeneroDTO>dtos=new ArrayList<>();
-    for(GeneroEntity entity:entities){
+    for(Genero entity:entities){
     dtos.add(this.generoEntity2DTO(entity));
     }
     return dtos;

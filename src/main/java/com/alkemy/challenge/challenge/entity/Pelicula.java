@@ -12,16 +12,15 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
-@Table(name="pelicula")
 @Getter
 @Setter
 @SQLDelete(sql="UPDATE pelicula SET deleted = true WHERE id=?")
 @Where(clause="delete=false")
 
-public class PeliculaEntity {
+public class Pelicula {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String imagen;
@@ -36,11 +35,11 @@ public class PeliculaEntity {
     private Long calificacion;
 
     //trae la informacion del genero
-    @ManyToOne(fetch=FetchType.EAGER, cascade= CascadeType.ALL)
-    @JoinColumn(name = "genero_id",insertable = false, updatable = false)
-    private GeneroEntity genero;
+    @ManyToOne(cascade= CascadeType.MERGE)
+    @JoinColumn(name = "genero_id")
+    private Genero genero;
     //guarda y actualiza
-    @Column(name = "genero_id", nullable = false)
+
     private Long generoId;
 
     private boolean deleted=Boolean.FALSE;
@@ -56,9 +55,9 @@ public class PeliculaEntity {
             joinColumns = @JoinColumn(name= "pelicula_id"),
             inverseJoinColumns = @JoinColumn(name = "personaje_id")
     )
-    private Set<PersonajeEntity> personajes = new HashSet<>();
+    private Set<Personaje> personajes = new HashSet<>();
 
-    //private List<PersonajeEntity> personajes = new ArrayList<>();
+    //private List<Personaje> personajes = new ArrayList<>();
 
 
 

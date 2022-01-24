@@ -2,11 +2,9 @@ package com.alkemy.challenge.challenge.service.impl;
 
 
 import com.alkemy.challenge.challenge.controller.PersonajeFiltersDTO;
-import com.alkemy.challenge.challenge.dto.GeneroDTO;
 import com.alkemy.challenge.challenge.dto.PersonajeDTO;
-import com.alkemy.challenge.challenge.entity.GeneroEntity;
-import com.alkemy.challenge.challenge.entity.PeliculaEntity;
-import com.alkemy.challenge.challenge.entity.PersonajeEntity;
+import com.alkemy.challenge.challenge.entity.Pelicula;
+import com.alkemy.challenge.challenge.entity.Personaje;
 import com.alkemy.challenge.challenge.exception.ParamNotFound;
 import com.alkemy.challenge.challenge.mapper.PersonajeMapper;
 import com.alkemy.challenge.challenge.repository.PersonajeRepository;
@@ -32,14 +30,14 @@ import java.util.Set;
 
     public List<PersonajeDTO>getByFilters(String nombre, String edad, Set<Long> peliculas, String order){
         PersonajeFiltersDTO filtersDTO=new PersonajeFiltersDTO(nombre,edad,peliculas,order);
-        List<PersonajeEntity>personajes=personajeRepository.findAll(personajeSpecificacion.getByFilters(filtersDTO));
+        List<Personaje>personajes=personajeRepository.findAll(personajeSpecificacion.getByFilters(filtersDTO));
         List<PersonajeDTO>dtos=personajeMapper.personajeEntitySet2DTOList(personajes,true);
         return dtos;
     }
     public PersonajeDTO save(PersonajeDTO dto){
-        PersonajeEntity personajeEntity=personajeMapper.personajeDTO2Entity(dto);
-        PersonajeEntity personajeEntitySaved=personajeRepository.save(personajeEntity);
-        PersonajeDTO dtos= personajeMapper.personajeEntity2DTO(personajeEntitySaved,false);
+        Personaje personaje =personajeMapper.personajeDTO2Entity(dto);
+        Personaje personajeSaved =personajeRepository.save(personaje);
+        PersonajeDTO dtos= personajeMapper.personajeEntity2DTO(personajeSaved,false);
         //todo: guardar genero
         System.out.println("GUARDAR PERSONAJE");
         return dtos;
@@ -47,7 +45,7 @@ import java.util.Set;
 
 
     public List<PersonajeDTO> getAllPersonajes() {
-        List<PersonajeEntity>personajes=personajeRepository.findAll();
+        List<Personaje>personajes=personajeRepository.findAll();
         List<PersonajeDTO> personajeDTOS=personajeMapper.personajeEntitySet2DTOList(personajes,false);
         return personajeDTOS;
     }
@@ -56,14 +54,14 @@ import java.util.Set;
     }
 
     public void removePelicula(Long id,Long idPelicula){
-        PersonajeEntity entity=personajeRepository.getById(id);
+        Personaje entity=personajeRepository.getById(id);
         entity.getPeliculas().size();
-        PeliculaEntity peliculaEntity=peliculaService.getEntityById(idPelicula);
-        entity.removePelicula(peliculaEntity);
+        Pelicula pelicula =peliculaService.getEntityById(idPelicula);
+        entity.removePelicula(pelicula);
         personajeRepository.save(entity);
     }
     public PersonajeDTO getDetailsById(Long id){
-        Optional<PersonajeEntity> entity=personajeRepository.findById(id);
+        Optional<Personaje> entity=personajeRepository.findById(id);
         if(!entity.isPresent()){
             throw new ParamNotFound("Id personaje no válido");
         }

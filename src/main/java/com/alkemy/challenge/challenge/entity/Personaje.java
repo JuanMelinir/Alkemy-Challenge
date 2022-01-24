@@ -9,16 +9,15 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name="personaje")
 @Getter
 @Setter
 @SQLDelete(sql="UPDATE personaje SET deleted = true WHERE id=?")
 @Where(clause="delete=false")
 
-public class PersonajeEntity {
+public class Personaje {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String imagen;
@@ -34,9 +33,9 @@ public class PersonajeEntity {
     private boolean deleted=Boolean.FALSE;
 
     @ManyToMany(mappedBy = "personajes", cascade = CascadeType.ALL)
-    private List<PeliculaEntity> peliculas=new ArrayList<>();
+    private List<Pelicula> peliculas=new ArrayList<>();
 
-    public void removePelicula(PeliculaEntity pelicula){
+    public void removePelicula(Pelicula pelicula){
     this.peliculas.remove(pelicula);
     }
 

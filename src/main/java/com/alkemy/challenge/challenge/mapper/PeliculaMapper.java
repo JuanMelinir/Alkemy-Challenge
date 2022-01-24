@@ -3,8 +3,8 @@ package com.alkemy.challenge.challenge.mapper;
 
 import com.alkemy.challenge.challenge.dto.PeliculaDTO;
 import com.alkemy.challenge.challenge.dto.PersonajeDTO;
-import com.alkemy.challenge.challenge.entity.PeliculaEntity;
-import com.alkemy.challenge.challenge.entity.PersonajeEntity;
+import com.alkemy.challenge.challenge.entity.Pelicula;
+import com.alkemy.challenge.challenge.entity.Personaje;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,34 +15,34 @@ import java.util.Set;
 public class PeliculaMapper {
     private PersonajeMapper personajeMapper;
 
-    public PeliculaEntity peliculaDTO2Entity(PeliculaDTO dto){
-        PeliculaEntity peliculaEntity=new PeliculaEntity();
-        peliculaEntity.setImagen(dto.getImagen());
-        peliculaEntity.setTitulo(dto.getTitulo());
-        peliculaEntity.setFechaDeCreacion(dto.getFechaDeCreacion());
-        peliculaEntity.setCalificacion(dto.getCalificacion());
-        peliculaEntity.setGeneroId(dto.getGeneroId());
-        Set<PersonajeEntity>personajeEntities=personajeMapper.personajeDTOList2Entity(dto.getPersonajes());
-        peliculaEntity.setPersonajes(personajeEntities);
-        return peliculaEntity;
+    public Pelicula peliculaDTO2Entity(PeliculaDTO dto){
+        Pelicula pelicula =new Pelicula();
+        pelicula.setImagen(dto.getImagen());
+        pelicula.setTitulo(dto.getTitulo());
+        pelicula.setFechaDeCreacion(dto.getFechaDeCreacion());
+        pelicula.setCalificacion(dto.getCalificacion());
+        pelicula.setGeneroId(dto.getGeneroId());
+        Set<Personaje>personajeEntities=personajeMapper.personajeDTOList2Entity(dto.getPersonajes());
+        pelicula.setPersonajes(personajeEntities);
+        return pelicula;
     }
-    public PeliculaDTO peliculaEntity2DTO(PeliculaEntity peliculaEntity, boolean loadPersonajes){
+    public PeliculaDTO peliculaEntity2DTO(Pelicula pelicula, boolean loadPersonajes){
         PeliculaDTO peliculaDTO= new PeliculaDTO();
-        peliculaDTO.setId(peliculaEntity.getId());
-        peliculaDTO.setImagen(peliculaEntity.getImagen());
-        peliculaDTO.setTitulo(peliculaEntity.getTitulo());
-        peliculaDTO.setFechaDeCreacion(peliculaEntity.getFechaDeCreacion());
-        peliculaDTO.setCalificacion(peliculaEntity.getCalificacion());
-        peliculaDTO.setGeneroId(peliculaEntity.getGeneroId());
+        peliculaDTO.setId(pelicula.getId());
+        peliculaDTO.setImagen(pelicula.getImagen());
+        peliculaDTO.setTitulo(pelicula.getTitulo());
+        peliculaDTO.setFechaDeCreacion(pelicula.getFechaDeCreacion());
+        peliculaDTO.setCalificacion(pelicula.getCalificacion());
+        peliculaDTO.setGeneroId(pelicula.getGeneroId());
         if(loadPersonajes){
-        List<PersonajeDTO>personajes=personajeMapper.personajeEntitySet2DTOList(peliculaEntity.getPersonajes(),false);
+        List<PersonajeDTO>personajes=personajeMapper.personajeEntitySet2DTOList(pelicula.getPersonajes(),false);
         peliculaDTO.setPersonajes(personajes);
         }
         return peliculaDTO;
     }
-    public List<PeliculaDTO> peliculaEntityList2DTOList(List<PeliculaEntity>entities, boolean loadPersonajes){
+    public List<PeliculaDTO> peliculaEntityList2DTOList(List<Pelicula>entities, boolean loadPersonajes){
         List<PeliculaDTO>dtos=new ArrayList<>();
-        for(PeliculaEntity entity:entities){
+        for(Pelicula entity:entities){
             dtos.add(this.peliculaEntity2DTO(entity,loadPersonajes));
         }
         return dtos;
