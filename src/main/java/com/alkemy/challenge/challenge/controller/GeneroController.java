@@ -15,6 +15,9 @@ import java.util.List;
 public class GeneroController {
     @Autowired
     private GeneroService generoService;
+
+
+
     @GetMapping
     public ResponseEntity<List<GeneroDTO>> getAll(){
         List<GeneroDTO> generos=generoService.getAllGeneros();
@@ -31,6 +34,6 @@ public class GeneroController {
     public ResponseEntity <Void> delete(@PathVariable Long id){
         generoService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
     }
+
 }

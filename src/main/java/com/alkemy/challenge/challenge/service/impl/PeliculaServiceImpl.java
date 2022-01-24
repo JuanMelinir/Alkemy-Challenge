@@ -21,7 +21,7 @@ public class PeliculaServiceImpl implements PeliculaService {
     public PeliculaDTO save(PeliculaDTO dto){
         PeliculaEntity peliculaEntity=peliculaMapper.peliculaDTO2Entity(dto);
         PeliculaEntity peliculaEntitySaved=peliculaRepository.save(peliculaEntity);
-        PeliculaDTO result= peliculaMapper.peliculaEntity2DTO(peliculaEntitySaved);
+        PeliculaDTO result= peliculaMapper.peliculaEntity2DTO(peliculaEntitySaved,false);
         //todo: guardar pelicula
         System.out.println("GUARDAR PELICULA");
         return result;
@@ -29,10 +29,15 @@ public class PeliculaServiceImpl implements PeliculaService {
 
     public List<PeliculaDTO> getAllPeliculas() {
         List<PeliculaEntity>peliculas=peliculaRepository.findAll();
-        List<PeliculaDTO> result=peliculaMapper.peliculaEntityList2DTOList(peliculas);
+        List<PeliculaDTO> result=peliculaMapper.peliculaEntityList2DTOList(peliculas,false);
         return result;
     }
     public void delete(Long id){
         peliculaRepository.deleteById(id);
+    }
+
+    public PeliculaEntity getEntityById(Long id){
+    PeliculaEntity pelicula=peliculaRepository.getById(id);
+    return pelicula;
     }
 }

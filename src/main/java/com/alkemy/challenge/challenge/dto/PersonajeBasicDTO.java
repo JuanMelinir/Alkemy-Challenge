@@ -1,13 +1,6 @@
 package com.alkemy.challenge.challenge.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
-
-@Getter
-@Setter
-public class PersonajeDTO {
+public class PersonajeBasicDTO {
     private Long id;
 
     private String imagen;
@@ -19,6 +12,4 @@ public class PersonajeDTO {
     private Long peso;
 
     private String historia;
-
-    private List<PeliculaDTO> peliculas;
 }

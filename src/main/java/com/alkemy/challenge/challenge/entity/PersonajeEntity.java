@@ -36,4 +36,8 @@ public class PersonajeEntity {
     @ManyToMany(mappedBy = "personajes", cascade = CascadeType.ALL)
     private List<PeliculaEntity> peliculas=new ArrayList<>();
 
+    public void removePelicula(PeliculaEntity pelicula){
+    this.peliculas.remove(pelicula);
+    }
+
 }
