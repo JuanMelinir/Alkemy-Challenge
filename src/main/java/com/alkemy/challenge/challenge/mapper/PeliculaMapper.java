@@ -21,7 +21,7 @@ public class PeliculaMapper {
         pelicula.setTitulo(dto.getTitulo());
         pelicula.setFechaDeCreacion(dto.getFechaDeCreacion());
         pelicula.setCalificacion(dto.getCalificacion());
-        pelicula.setGeneroId(dto.getGeneroId());
+        pelicula.setGenero(dto.getGenero());
         Set<Personaje>personajeEntities=personajeMapper.personajeDTOList2Entity(dto.getPersonajes());
         pelicula.setPersonajes(personajeEntities);
         return pelicula;
@@ -33,7 +33,7 @@ public class PeliculaMapper {
         peliculaDTO.setTitulo(pelicula.getTitulo());
         peliculaDTO.setFechaDeCreacion(pelicula.getFechaDeCreacion());
         peliculaDTO.setCalificacion(pelicula.getCalificacion());
-        peliculaDTO.setGeneroId(pelicula.getGeneroId());
+        peliculaDTO.setGenero(pelicula.getGenero());
         if(loadPersonajes){
         List<PersonajeDTO>personajes=personajeMapper.personajeEntitySet2DTOList(pelicula.getPersonajes(),false);
         peliculaDTO.setPersonajes(personajes);

@@ -19,15 +19,34 @@ import java.util.Set;
 
 @Service
   public class PersonajeServiceImpl implements PersonajeService {
-    @Autowired
-    private PersonajeMapper personajeMapper;
-    @Autowired
-    private PersonajeSpecificacion personajeSpecificacion;
-    @Autowired
+
     private PersonajeRepository personajeRepository;
-    @Autowired
+    private PersonajeSpecificacion personajeSpecificacion;
+
+    private PersonajeMapper personajeMapper;
+
     private PeliculaServiceImpl peliculaService;
 
+    @Autowired
+    public PersonajeServiceImpl(
+            PersonajeRepository personajeRepository,
+            PersonajeSpecificacion personajeSpecificacion,
+            PeliculaServiceImpl peliculaService,
+            PersonajeMapper personajeMapper
+            ){
+        this.personajeRepository=personajeRepository;
+        this.personajeSpecificacion=personajeSpecificacion;
+        this.peliculaService=peliculaService;
+        this.personajeMapper=personajeMapper;
+    }
+    public PersonajeDTO getDetailsById(Long id){
+    Optional<Personaje>entity=this.personajeRepository.findById(id);
+    if(!entity.isPresent()){
+        throw new ParamNotFound("Id personaje no valido");
+    }
+    PersonajeDTO personajeDTO=this.personajeMapper.personajeEntity2DTO(entity.get(),true);
+    return personajeDTO;
+    }
     public List<PersonajeDTO>getByFilters(String nombre, String edad, Set<Long> peliculas, String order){
         PersonajeFiltersDTO filtersDTO=new PersonajeFiltersDTO(nombre,edad,peliculas,order);
         List<Personaje>personajes=personajeRepository.findAll(personajeSpecificacion.getByFilters(filtersDTO));
@@ -59,13 +78,5 @@ import java.util.Set;
         Pelicula pelicula =peliculaService.getEntityById(idPelicula);
         entity.removePelicula(pelicula);
         personajeRepository.save(entity);
-    }
-    public PersonajeDTO getDetailsById(Long id){
-        Optional<Personaje> entity=personajeRepository.findById(id);
-        if(!entity.isPresent()){
-            throw new ParamNotFound("Id personaje no válido");
-        }
-        PersonajeDTO personajeDTO=personajeMapper.personajeEntity2DTO(entity.get(),true);
-        return personajeDTO;
     }
 }

@@ -1,5 +1,6 @@
 package com.alkemy.challenge.challenge.dto;
 
+import com.alkemy.challenge.challenge.entity.Genero;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,8 @@ public class PeliculaDTO {
 
     private Long calificacion;
 
-    private Long generoId;
+    private Genero genero;
+    //private Long generoId;
 
     //private Set<Personaje> personajes = new HashSet<>();
 

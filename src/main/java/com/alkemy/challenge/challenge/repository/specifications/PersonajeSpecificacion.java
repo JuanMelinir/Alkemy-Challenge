@@ -4,6 +4,7 @@ import com.alkemy.challenge.challenge.controller.PersonajeFiltersDTO;
 import com.alkemy.challenge.challenge.entity.Pelicula;
 import com.alkemy.challenge.challenge.entity.Personaje;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 //import org.springframework.util.StringUtils;
@@ -14,7 +15,7 @@ import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Component
 public class PersonajeSpecificacion {
 
     public Specification<Personaje> getByFilters(PersonajeFiltersDTO filtersDTO){

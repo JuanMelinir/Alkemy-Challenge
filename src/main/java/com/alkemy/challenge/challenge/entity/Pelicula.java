@@ -40,7 +40,7 @@ public class Pelicula {
     private Genero genero;
     //guarda y actualiza
 
-    private Long generoId;
+    //private Long generoId;
 
     private boolean deleted=Boolean.FALSE;
 

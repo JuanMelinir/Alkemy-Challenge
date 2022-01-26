@@ -17,6 +17,12 @@ import java.util.Set;
 public class PersonajeController {
     @Autowired
     private PersonajeService personajeService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonajeDTO>getDetailsById(@PathVariable Long id){
+    PersonajeDTO personaje=this.personajeService.getDetailsById(id);
+    return ResponseEntity.ok(personaje);
+    }
     @GetMapping
     public ResponseEntity<List<PersonajeDTO>> getDetailsByFilters(
             @RequestParam(required = false)String nombre,
@@ -27,11 +33,11 @@ public class PersonajeController {
         List<PersonajeDTO> personajes=personajeService.getByFilters(nombre,edad,peliculas,order);
         return ResponseEntity.ok().body(personajes);
     }
-    @GetMapping
+    /*@GetMapping
     public ResponseEntity<List<PersonajeDTO>> getAll(){
         List<PersonajeDTO> personajes=personajeService.getAllPersonajes();
         return ResponseEntity.ok().body(personajes);
-    }
+    }*/
     @PostMapping
     public ResponseEntity<PersonajeDTO> save(@RequestBody PersonajeDTO personaje){
         PersonajeDTO personajeGuardado=personajeService.save(personaje);
