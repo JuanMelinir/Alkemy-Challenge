@@ -48,6 +48,13 @@
 			<scope>test</scope>
 		</dependency>
 		<!--Auth-->
+		<!-- https://mvnrepository.com/artifact/com.sendgrid/sendgrid-java -->
+		<dependency>
+			<groupId>com.sendgrid</groupId>
+			<artifactId>sendgrid-java</artifactId>
+			<version>4.8.2</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
