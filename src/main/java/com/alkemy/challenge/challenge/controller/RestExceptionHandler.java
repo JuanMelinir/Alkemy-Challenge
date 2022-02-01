@@ -23,6 +23,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 Arrays.asList("param not found")
         );
-        return handleExceptionInternal(ex,errorDTO,new HttpHeaders(),HttpStatus.BAD_REQUEST,request);
+        return handleExceptionInternal(ex,errorDTO,new HttpHeaders(),HttpStatus.NOT_FOUND,request);
     }
 }

@@ -22,7 +22,7 @@ public class User implements UserDetails{
     @Email
     private String username;
     @Size(min=8)
-    private String passwordnot;
+    private String password;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -47,5 +47,9 @@ public class User implements UserDetails{
     @Override
     public String getPassword() {
         return null;
+    }
+
+    public void setPassword(String password) {
+        this.password=password;
     }
 }

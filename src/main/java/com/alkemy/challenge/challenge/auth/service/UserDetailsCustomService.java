@@ -19,15 +19,6 @@ public class UserDetailsCustomService implements UserDetailsService {
     @Autowired
     private EmailService emailService;
 
-    @Override
-    public UserDetails loadUserByUserName(String username)throws UsernameNotFoundException{
-        User user=userRepository.findByUsername(username);
-        if(user==null){
-        throw new UsernameNotFoundException("Username or password not found");
-        }
-        return new User(user.getUsername(),user.getPassword(), Collection.emptyList());
-    }
-
     public Boolean save(UserDTO userDTO){
         User user=new User();
         user.setUsername(userDTO.getUsername());
@@ -36,7 +27,7 @@ public class UserDetailsCustomService implements UserDetailsService {
         if(user!=null){
         emailService.sendWelcomeEmailTo(user.getUsername());
         }
-        return user!=null
+        return user!=null;
     }
 
     @Override

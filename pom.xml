@@ -20,15 +20,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>2.6.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.6.3</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
+			<version>2.6.3</version>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
@@ -45,6 +48,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>2.6.3</version>
 			<scope>test</scope>
 		</dependency>
 		<!--Auth-->
@@ -67,6 +71,18 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+        <dependency>
+            <groupId>email-normalisation</groupId>
+            <artifactId>email-normalisation</artifactId>
+            <version>1.0.3</version>
+            <scope>compile</scope>
+        </dependency>
+		<dependency>
+			<groupId>com.commercetools.sunrise.email</groupId>
+			<artifactId>email-api</artifactId>
+			<version>0.3.0</version>
+			<scope>compile</scope>
+		</dependency>
 
 		<!--Auth-->
 
@@ -88,5 +104,12 @@
 			</plugin>
 		</plugins>
 	</build>
+    <repositories>
+        <repository>
+            <id>clojars</id>
+            <name>Clojars</name>
+            <url>https://repo.clojars.org/</url>
+        </repository>
+    </repositories>
 
 </project>

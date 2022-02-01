@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class PersonajeMapper {
@@ -50,6 +51,7 @@ public class PersonajeMapper {
             entities.add(this.personajeDTO2Entity(dto));
         }
         return entities;
+
     }
 
 }
